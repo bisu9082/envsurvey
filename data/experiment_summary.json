@@ -1,0 +1,104 @@
+{
+  "project": "envsurvey",
+  "date": "2026-05-05",
+  "journal": "Journal of Environmental Radioactivity",
+  "n_real_measurements": 10,
+  "n_synthetic_training": 1000,
+  "seeds_used": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "bootstrap_ci_samples": 1000,
+  "EXP1": {
+    "RMSE_GF_vs_FH40G": 0.05894,
+    "MAE_GF_vs_FH40G": 0.05829,
+    "R2_GF_vs_FH40G": -36.6048,
+    "Pearson_r": 0.442,
+    "Pearson_p": 0.200958,
+    "Mean_ratio_GF_FH40G": 0.3988,
+    "Wilcoxon_W": 0.0,
+    "Wilcoxon_p": 0.001953,
+    "Cohens_d": -6.3145,
+    "Bias_95CI": [
+      -0.06319,
+      -0.05301
+    ],
+    "Sanity_monotonicity": true
+  },
+  "EXP2": {
+    "Full_Noise": {
+      "RMSE_mean": 0.02969,
+      "R2_mean": -26.217,
+      "RMSE_95CI": [
+        0.02568,
+        0.03398
+      ],
+      "n_features": 20,
+      "noise": true
+    },
+    "Full_NoNoise": {
+      "RMSE_mean": 0.07686,
+      "R2_mean": -176.7121,
+      "RMSE_95CI": [
+        0.07645,
+        0.07731
+      ],
+      "n_features": 20,
+      "noise": false
+    },
+    "ROI_Noise": {
+      "RMSE_mean": 0.16113,
+      "R2_mean": -780.0839,
+      "RMSE_95CI": [
+        0.16092,
+        0.16139
+      ],
+      "n_features": 2,
+      "noise": true
+    },
+    "ROI_NoNoise": {
+      "RMSE_mean": 0.09215,
+      "R2_mean": -254.4757,
+      "RMSE_95CI": [
+        0.09204,
+        0.09226
+      ],
+      "n_features": 2,
+      "noise": false
+    },
+    "XGB_Full_Noise": {
+      "RMSE_mean": 0.05626,
+      "n_features": 20,
+      "noise": true
+    },
+    "Sanity3_crosscondition": true,
+    "eta_squared_AblationA": 0.966
+  },
+  "EXP3": {
+    "P3E5m_Cs137_net": 1960,
+    "Background_Cs137_mean": 94.0,
+    "Hotspot_ratio": 20.9,
+    "Pearson_Cs_FH40G": 0.0078,
+    "p_Cs_FH40G": 0.9828,
+    "Pearson_Cs_Gcalc": -0.3205,
+    "lat_range": [
+      33.415068,
+      33.416614
+    ],
+    "lon_range": [
+      126.527121,
+      126.530992
+    ]
+  },
+  "gate4": {
+    "sanity_monotonicity": true,
+    "sanity_baseline_plausibility": true,
+    "sanity_cross_condition": true,
+    "seeds_used": 5,
+    "bootstrap_ci_samples": 1000,
+    "effect_size_cohens_d": -6.3145
+  }
+}
