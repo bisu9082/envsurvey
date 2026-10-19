@@ -123,3 +123,13 @@ with open(os.path.join(LOGDIR,"cs137_consistent_roi.csv"),"w") as f:
         g,bk,n,s,LC,LD=A[pid]; ar,dA,_,_,chi=B[pid]
         f.write("%s,%.0f,%.0f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.3f,%.3f,%d,%d\n"%(pid,LT[pid],g,bk,n,s,LC,LD,ar,dA,chi,Cf[pid],REC_GROSS[pid],REC[pid]))
 open(os.path.join(LOGDIR,"cs137_consistent_roi.log"),"w").write("\n".join(out)+"\n")
+
+# ---------------- [D] mutual consistency of the fitted areas ----------------
+ar=np.array([B[k][0] for _,k in ID]); sg=np.array([B[k][1] for _,k in ID])
+wm=np.sum(ar/sg**2)/np.sum(1/sg**2); chi=np.sum(((ar-wm)/sg)**2)
+from scipy.stats import chi2 as _c2
+P("\n[D] fitted areas vs a common value: weighted mean %.0f, chi2 = %.1f for %d dof (p = %.1e)"%(wm,chi,len(ar)-1,_c2.sf(chi,len(ar)-1)))
+z=(ar-ar.mean())/ar.std(ddof=1)
+P("    largest |deviation| from the mean of ten: %.2f SD (%s); P3E5m %.2f SD"%(abs(z).max(),[k for _,k in ID][int(np.argmax(abs(z)))],z[[k for _,k in ID].index("P3E5m")]))
+P("    field-recorded P3E5m / mean of other nine = %.1f"%(REC["P3E5m"]/np.mean([REC[k] for _,k in ID if k!="P3E5m"])))
+open(os.path.join(HERE,"cs137_consistent_roi.log") if not os.path.isdir(os.path.join(HERE,"..","logs")) else os.path.join(HERE,"..","logs","cs137_consistent_roi.log"),"w").write("\n".join(out)+"\n")

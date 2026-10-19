@@ -160,3 +160,33 @@ U_,pU=stats.mannwhitneyu(r3,r1,alternative='two-sided',method='exact')
 P("\n[8] ratio by cluster: P3 %.3f +/- %.3f (n=5) ; P1 %.3f +/- %.3f (n=5) ; Mann-Whitney U=%.0f p=%.3f (exact, two-sided)"%(r3.mean(),r3.std(ddof=1),r1.mean(),r1.std(ddof=1),U_,pU))
 P("    Wilcoxon minimum attainable two-sided p for n=10: %.4f"%(2/2**10))
 open(os.path.join(LOGDIR,"dose_r2.log"),"w").write("\n".join(out)+"\n")
+
+# ---------------- [9] SI Table S5: without H*(10)/Ka (k = 1), 10 keV-3.1 MeV as in the original submission ----------------
+Hu=[]
+for c,lt,a,b in SP:
+    E=(a+b*(np.arange(len(c))+1))/1000.; v=(E>0.01)&(E<3.1)
+    Hu.append(np.sum(c[v]*Gpoly(E[v]))/lt*R)
+Hu=np.array(Hu); ru=Hu/FH; du=Hu-FH
+P("\n[9] without H*(10)/Ka (k=1, 10 keV lower limit, original submission)")
+for i in range(10): P("  %-6s %.4f  ratio %.3f"%(ids[i],Hu[i],ru[i]))
+P("  ratio %.3f +/- %.3f ; difference %.1f %% ; dz %.2f ; Wilcoxon p %.4f ; corrected/uncorrected dose %.3f"%(ru.mean(),ru.std(ddof=1),100*(1-ru.mean()),du.mean()/du.std(ddof=1),stats.wilcoxon(Hu,FH).pvalue,(H/Hu).mean()))
+open(os.path.join(LOGDIR,"dose_r2.log"),"w").write("\n".join(out)+"\n")
+
+# ---------------- [10] values quoted in the text ----------------
+P("\n[10] supporting values")
+fr=[];f30=[]
+for c,lt,a,b in SP:
+    E=(a+b*(np.arange(len(c))+1))/1000.; w=Gpoly(E)*hk_lin(E); allv=(E>0)&(E<3.1)
+    fr.append(np.sum((c*w)[(E>0)&(E<=0.05)])/np.sum((c*w)[allv]))
+    f30.append(np.sum((c*w)[(E>3.0)&(E<3.1)])/np.sum((c*w)[(E>0.05)&(E<3.1)]))
+P("  share of channels below 50 keV in a 0-3.1 MeV sum: %.1f-%.1f %%"%(100*min(fr),100*max(fr)))
+P("  share of the 3.0-3.1 MeV channels in the 50 keV-3.1 MeV sum: %.2f-%.2f %%"%(100*min(f30),100*max(f30)))
+f28=[np.sum((c*Gpoly((a+b*(np.arange(len(c))+1))/1000.)*hk_lin((a+b*(np.arange(len(c))+1))/1000.))[((a+b*(np.arange(len(c))+1))/1000.>2.9)&((a+b*(np.arange(len(c))+1))/1000.<3.1)])/np.sum((c*Gpoly((a+b*(np.arange(len(c))+1))/1000.)*hk_lin((a+b*(np.arange(len(c))+1))/1000.))[((a+b*(np.arange(len(c))+1))/1000.>0.05)&((a+b*(np.arange(len(c))+1))/1000.<3.1)]) for c,lt,a,b in SP]
+P("  share of the 2.9-3.1 MeV channels: %.2f-%.2f %%"%(100*min(f28),100*max(f28)))
+from scipy.stats import nct, t as tdist
+def pw(dz,n=10,al=0.05):
+    df=n-1; tc=tdist.ppf(1-al/2,df); nc=dz*np.sqrt(n); return 1-nct.cdf(tc,df,nc)+nct.cdf(-tc,df,nc)
+for tg in (0.8,0.9):
+    dzm=next(x for x in np.arange(0.5,2,0.001) if pw(x)>=tg); P("  minimum detectable paired dz (n=10, alpha 0.05 two-sided) at %d %% power: %.2f"%(100*tg,dzm))
+a_,b_,c_=-0.01392,0.06968,-0.05862; e=0.6617; fw=a_+b_*np.sqrt(e+c_*e*e); P("  GEB FWHM at 661.7 keV: %.1f keV = %.2f %%"%(1000*fw,100*fw/e))
+open(os.path.join(LOGDIR,"dose_r2.log"),"w").write("\n".join(out)+"\n")

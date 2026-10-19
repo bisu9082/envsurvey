@@ -40,7 +40,7 @@ P("  terrestrial-only comparison (FH40G minus %.1f nSv/h): ratio %.3f"%(lo,(H/(F
 
 # ---------------- [3] corrected comparison (cosmic component added to G(E), f = 1) ----------------
 from scipy import stats
-C=(lo+hi)/2/1000; uC=np.sqrt(((hi-lo)/2/1000/np.sqrt(3))**2+(0.10*C)**2)   # range half-width (rect.) + 10 % solar-cycle/latitude (UNSCEAR)
+C=(lo+hi)/2/1000; uC=np.sqrt(((hi-lo)/2/1000/np.sqrt(3))**2+(0.10*C)**2)   # range half-width (rect.) + 10 % solar-cycle variation (UNSCEAR 2000 Annex B para 20)
 Hc=H+C; rc=Hc/F; dc=Hc-F
 W,pW=stats.wilcoxon(Hc,F); tc=stats.t.ppf(0.975,9); se=dc.std(ddof=1)/np.sqrt(10)
 P("\n[3] G(E) + cosmic (%.1f +/- %.1f nSv/h, k=1) vs FH40G, assuming FH40G registers the cosmic component fully"%(C*1000,uC*1000))

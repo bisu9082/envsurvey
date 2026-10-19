@@ -1,4 +1,4 @@
-# Cs-137 consistent-ROI re-analysis  run: 2026-10-19T20:24:03
+# Cs-137 consistent-ROI re-analysis  run: 2026-10-20T00:21:25
   P3     3원점.Spe    live=1198 s  total=266381  sha1=873dd6656d98
   P3N5m  3북쪽.Spe    live=1198 s  total=277374  sha1=3d3ac8c6fd99
   P3E5m  3동쪽.Spe    live=1198 s  total=273996  sha1=7e5a3d7b0eb1
@@ -89,3 +89,7 @@
   P1W5m  gross  2542 net   120
   P1S5m  gross  2346 net    67
   P3E5m recorded gross 8704 vs fixed-ROI gross 2221 -> recorded ROI was 3.9x wider in counts
+
+[D] fitted areas vs a common value: weighted mean 747, chi2 = 42.3 for 9 dof (p = 2.9e-06)
+    largest |deviation| from the mean of ten: 1.48 SD (P3S5m); P3E5m -1.16 SD
+    field-recorded P3E5m / mean of other nine = 20.9

@@ -1,0 +1,16 @@
+# gain_check.py run 2026-10-20T00:21:24
+start (SPE header)   point  file    centroid   1sig     FWHM
+04/29/2026 10:56:44  P3     3원점       1479.5    2.1     76.7
+04/29/2026 11:10:10  P3N5m  3북쪽       1480.7    2.2     68.3
+04/29/2026 11:37:33  P3W5m  3서쪽       1483.4    3.3     78.4
+04/29/2026 12:03:33  P3E5m  3동쪽       1481.5    2.3     68.7
+04/29/2026 12:30:27  P3S5m  3남쪽       1480.2    2.4     63.7
+04/29/2026 13:12:57  P1     1원점       1482.8    2.1     71.6
+04/29/2026 13:37:23  P1E5m  1동쪽       1479.6    1.8     66.0
+04/29/2026 14:01:11  P1N5m  1북쪽       1482.3    1.8     72.9
+04/29/2026 14:24:57  P1W5m  1서쪽       1478.5    2.2     77.8
+04/29/2026 14:47:01  P1S5m  1남쪽       1475.4    1.7     69.5
+mean 1480.4 keV (nominal 1460.8 -> +19.6 keV, +1.34 %) ; SD 2.4 keV ; peak-to-peak 8.0 keV (2.6 channels) ; median fit 1sig 2.1 keV
+chi2 of constant centroid: 13.2 for 9 dof
+linear trend with time: -0.78 keV/h (p = 0.18)
+note: field log lists P3E5m at 11:40 and P3W5m at 12:03; the SPE headers of 3동쪽/3서쪽 give 12:03:33 and 11:37:33

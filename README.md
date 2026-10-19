@@ -4,7 +4,7 @@
 **Journal:** Applied Radiation and Isotopes (ARI-D-26-00647, under revision)
 **Corresponding authors:** M.-K. Kim (m.k.kim@mju.ac.kr), J. Kim (jokim@inje.ac.kr), K. Kang (bisu9082@gmail.com)
 
-This repository contains the raw spectra, the Monte Carlo outputs and the four scripts that generate every number reported in the revised manuscript.
+This repository contains the raw spectra, the Monte Carlo outputs and the scripts that generate every number reported in the revised manuscript.
 
 ## Structure
 
@@ -17,7 +17,9 @@ code/cs137_consistent_roi.py  Cs-137 photopeak extraction with one procedure for
 code/cosmic_r2.py             cosmic-ray ionizing component at the site elevation (UNSCEAR 2000)
                               and the cosmic-corrected G(E)/FH40G comparison
 code/cosmic_in_window.py      upper bound of cosmic signal already inside the 50 keV-3.1 MeV window
-logs/              output of the four scripts (as cited in the manuscript)
+code/gain_check.py            40K centroid per spectrum (gain stability, SI Table S4 / Fig. S3)
+code/make_figures_r2.py       manuscript Figs. 2-4 and SI Fig. S3 (python3 make_figures_r2.py <outdir>)
+logs/              output of the analysis scripts (as cited in the manuscript)
 legacy_jer/        superseded files from the earlier (JER) submission - see note below
 ```
 
@@ -36,12 +38,14 @@ Site: Jeju, Republic of Korea, 664-691 m above sea level, 29 April 2026. Detecto
 ## Reproducing the results
 
 ```
-pip install numpy scipy
+pip install numpy scipy matplotlib
 cd code
 python3 dose_r2.py               # -> logs/dose_r2.log
 python3 cs137_consistent_roi.py  # -> logs/cs137_consistent_roi.log, .csv
 python3 cosmic_r2.py             # -> logs/cosmic_r2.log
 python3 cosmic_in_window.py      # -> logs/cosmic_in_window.log
+python3 gain_check.py            # -> logs/gain_check.log, .csv
+python3 make_figures_r2.py ../figures   # figures (needs matplotlib)
 ```
 
 | Manuscript item | Log section |
@@ -54,6 +58,8 @@ python3 cosmic_in_window.py      # -> logs/cosmic_in_window.log
 | Cosmic-ray component, corrected ratio, Table 2 cosmic term | `cosmic_r2.log` [1]-[3] |
 | Cosmic signal inside the G(E) window (upper bound) | `cosmic_in_window.log` |
 | Table 1, Cs-137 fitted areas | `cs137_consistent_roi.log` [0], [B] |
+| SI Table S4, Fig. S3 (40K centroids) | `gain_check.log` |
+| SI Table S5 (without H*(10)/Ka) | `dose_r2.log` [9] |
 | Fixed-window comparison, Currie levels | `cs137_consistent_roi.log` [A] |
 
 ## Note on the earlier version (legacy_jer/)

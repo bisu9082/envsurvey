@@ -1,4 +1,4 @@
-# dose_r2.py run 2026-10-19T20:44:36
+# dose_r2.py run 2026-10-20T00:21:30
 
 [1] R1 analysis reproduced (channel index as in R1 code, 1-based)
   point    H_G(E)    FH40G  ratio   keff
@@ -105,3 +105,24 @@
 
 [8] ratio by cluster: P3 0.442 +/- 0.024 (n=5) ; P1 0.545 +/- 0.074 (n=5) ; Mann-Whitney U=1 p=0.016 (exact, two-sided)
     Wilcoxon minimum attainable two-sided p for n=10: 0.0020
+
+[9] without H*(10)/Ka (k=1, 10 keV lower limit, original submission)
+  P3     0.0312  ratio 0.335
+  P3N5m  0.0333  ratio 0.365
+  P3E5m  0.0337  ratio 0.347
+  P3W5m  0.0347  ratio 0.352
+  P3S5m  0.0317  ratio 0.385
+  P1     0.0440  ratio 0.495
+  P1E5m  0.0451  ratio 0.379
+  P1N5m  0.0469  ratio 0.515
+  P1W5m  0.0424  ratio 0.407
+  P1S5m  0.0416  ratio 0.408
+  ratio 0.399 +/- 0.061 ; difference 60.1 % ; dz -6.32 ; Wilcoxon p 0.0020 ; corrected/uncorrected dose 1.237
+
+[10] supporting values
+  share of channels below 50 keV in a 0-3.1 MeV sum: 3.1-3.8 %
+  share of the 3.0-3.1 MeV channels in the 50 keV-3.1 MeV sum: 0.07-0.12 %
+  share of the 2.9-3.1 MeV channels: 0.14-0.24 %
+  minimum detectable paired dz (n=10, alpha 0.05 two-sided) at 80 % power: 1.00
+  minimum detectable paired dz (n=10, alpha 0.05 two-sided) at 90 % power: 1.16
+  GEB FWHM at 661.7 keV: 41.7 keV = 6.29 %
