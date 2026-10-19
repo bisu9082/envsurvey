@@ -20,8 +20,13 @@ for k,(a,b) in elev.items(): P("  %s  z=%.3f-%.3f km  factor %.3f-%.3f"%(k,b,a,f
 zlo,zhi=0.664,0.691
 lo=30*f(zlo); hi=32*f(zhi)
 P("  site cosmic ionizing + photon component: %.1f-%.1f nGy/h (sea level 30-32 nGy/h); taken as ~nSv/h H*(10)"%(lo,hi))
-H=np.array([0.0386,0.0412,0.0417,0.0430,0.0392,0.0545,0.0557,0.0579,0.0524,0.0514])  # dose_r2.log [1]
-F=np.array([0.0932,0.0911,0.0973,0.0985,0.0823,0.0890,0.1190,0.0911,0.1040,0.1020])
+import importlib.util, io, contextlib
+_c=[os.path.join(HERE,"..","r2_dose","dose_r2.py"), os.path.join(HERE,"dose_r2.py")]
+_sp=importlib.util.spec_from_file_location("d", next(p for p in _c if os.path.exists(p)))
+with contextlib.redirect_stdout(io.StringIO()):
+    _d=importlib.util.module_from_spec(_sp); _sp.loader.exec_module(_d)
+H=_d.run(1)[0]   # G(E) dose rates exactly as in dose_r2.log [1]
+F=_d.FH
 d=H-F
 P("\n[2] G(E) excludes depositions >3 MeV; FH40G responds to the ionizing component.")
 P("  observed mean difference %.4f uSv/h ; cosmic estimate = %.0f-%.0f %% of it"%(d.mean(),100*lo/1000/abs(d.mean()),100*hi/1000/abs(d.mean())))

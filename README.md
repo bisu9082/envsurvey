@@ -4,7 +4,7 @@
 **Journal:** Applied Radiation and Isotopes (ARI-D-26-00647, under revision)
 **Corresponding authors:** M.-K. Kim (m.k.kim@mju.ac.kr), J. Kim (jokim@inje.ac.kr), K. Kang (bisu9082@gmail.com)
 
-This repository contains the raw spectra, the Monte Carlo outputs and the three scripts that generate every number reported in the revised manuscript.
+This repository contains the raw spectra, the Monte Carlo outputs and the four scripts that generate every number reported in the revised manuscript.
 
 ## Structure
 
@@ -16,6 +16,7 @@ code/dose_r2.py               G(E) x ICRP 74 H*(10)/Ka dose rates, comparison st
 code/cs137_consistent_roi.py  Cs-137 photopeak extraction with one procedure for all ten spectra
 code/cosmic_r2.py             cosmic-ray ionizing component at the site elevation (UNSCEAR 2000)
                               and the cosmic-corrected G(E)/FH40G comparison
+code/cosmic_in_window.py      upper bound of cosmic signal already inside the 50 keV-3.1 MeV window
 logs/              output of the two scripts (as cited in the manuscript)
 legacy_jer/        superseded files from the earlier (JER) submission - see note below
 ```
@@ -40,6 +41,7 @@ cd code
 python3 dose_r2.py               # -> logs/dose_r2.log
 python3 cs137_consistent_roi.py  # -> logs/cs137_consistent_roi.log, .csv
 python3 cosmic_r2.py             # -> logs/cosmic_r2.log
+python3 cosmic_in_window.py      # -> logs/cosmic_in_window.log
 ```
 
 | Manuscript item | Log section |
@@ -50,6 +52,7 @@ python3 cosmic_r2.py             # -> logs/cosmic_r2.log
 | Table 2 uncertainty terms | `dose_r2.log` [4], [7] |
 | Cluster comparison (Fig. 4b) | `dose_r2.log` [8] |
 | Cosmic-ray component, corrected ratio, Table 2 cosmic term | `cosmic_r2.log` [1]-[3] |
+| Cosmic signal inside the G(E) window (upper bound) | `cosmic_in_window.log` |
 | Table 1, Cs-137 fitted areas | `cs137_consistent_roi.log` [0], [B] |
 | Fixed-window comparison, Currie levels | `cs137_consistent_roi.log` [A] |
 
