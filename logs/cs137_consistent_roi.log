@@ -1,0 +1,91 @@
+# Cs-137 consistent-ROI re-analysis  run: 2026-10-19T20:24:03
+  P3     3원점.Spe    live=1198 s  total=266381  sha1=873dd6656d98
+  P3N5m  3북쪽.Spe    live=1198 s  total=277374  sha1=3d3ac8c6fd99
+  P3E5m  3동쪽.Spe    live=1198 s  total=273996  sha1=7e5a3d7b0eb1
+  P3W5m  3서쪽.Spe    live=1198 s  total=283916  sha1=a70393914926
+  P3S5m  3남쪽.Spe    live=1198 s  total=260489  sha1=6fbb2f202f46
+  P1     1원점.Spe    live=1198 s  total=350678  sha1=4b78a131eb11
+  P1E5m  1동쪽.Spe    live=1198 s  total=353386  sha1=c149bd251476
+  P1N5m  1북쪽.Spe    live=1198 s  total=366205  sha1=08995a2347d9
+  P1W5m  1서쪽.Spe    live=1198 s  total=338696  sha1=af9cbc1927c5
+  P1S5m  1남쪽.Spe    live=1198 s  total=332496  sha1=9e2e0a94f608
+  calibration from headers: E = -26.4404 + 3.073395*ch (identical in all files)
+
+[0] sum-spectrum 3-peak fit (540-780 keV, centroids free):
+  Tl-208 583.2 -> 590.6 +/- 2.1 keV; Bi-214 609.3 -> 618.4 +/- 1.5 keV; Cs-137 661.7 -> 669.1 +/- 1.2 keV; FWHM(Cs) 38.8 keV
+  other natural lines (single-peak fits, sum spectrum):
+    Pb-214    351.9 ->   349.4 keV
+    Ac-228    911.2 ->   927.5 keV
+    Bi-214   1120.3 ->  1137.4 keV
+    K-40     1460.8 ->  1480.2 keV
+
+[A] fixed ROI centred at 669.1 keV, width = 1 FWHM of the sum-spectrum Cs peak (38.8 keV), linear background from 3 channels each side
+  channels 220-233 (649.7-689.7 keV), n=14
+  point    gross     bkg     net   1sig    L_C    L_D  net>L_C
+  P3        2104    2060      44     83    193    388  no
+  P3N5m     2445    2340     105     89    206    413  no
+  P3E5m     2221    2338    -117     88    206    413  no
+  P3W5m     2565    2289     276     89    204    409  yes
+  P3S5m     2052    2004      48     82    190    383  no
+  P1        3152    2877     275     99    228    458  yes
+  P1E5m     2977    2879      98     98    228    458  no
+  P1N5m     3191    3047     144    101    235    471  no
+  P1W5m     3055    2956      99    100    231    464  no
+  P1S5m     2971    2788     183     97    225    451  no
+
+[B] simultaneous Gaussian fit 540-780 keV: Tl-208, Bi-214, Cs-137 at mapped positions,
+    common shift dE, common width scaled as sqrt(E), linear continuum; Poisson weights
+  point   Cs area   1sig     dE    FWHM chi2/v
+  P3          539     83   +0.5    39.7   1.38
+  P3N5m       807     73   +0.3    39.9   0.92
+  P3E5m       556     78   +1.9    39.5   1.23
+  P3W5m       961     76   -1.1    40.8   0.91
+  P3S5m       500     74   -2.8    40.0   1.10
+  P1          811     83   +2.6    34.5   1.22
+  P1E5m       752     93   -2.4    38.0   1.33
+  P1N5m       769     98   +0.3    38.2   1.39
+  P1W5m       961     91   -0.8    40.3   1.11
+  P1S5m       950    100   -2.2    40.3   1.38
+  check: Bi-214 665.4 keV (1.53 %) under the Cs peak, scaled from fitted 609 keV area (45.5 %), eff ratio ~609/665:
+  P3     Bi609   923 -> Bi665  28 (5 % of 662-keV component)
+  P3N5m  Bi609  1316 -> Bi665  41 (5 % of 662-keV component)
+  P3E5m  Bi609  1653 -> Bi665  51 (9 % of 662-keV component)
+  P3W5m  Bi609  1617 -> Bi665  50 (5 % of 662-keV component)
+  P3S5m  Bi609  1622 -> Bi665  50 (10 % of 662-keV component)
+  P1     Bi609  1203 -> Bi665  37 (5 % of 662-keV component)
+  P1E5m  Bi609  1891 -> Bi665  58 (8 % of 662-keV component)
+  P1N5m  Bi609  1992 -> Bi665  61 (8 % of 662-keV component)
+  P1W5m  Bi609  2338 -> Bi665  72 (7 % of 662-keV component)
+  P1S5m  Bi609  2601 -> Bi665  80 (8 % of 662-keV component)
+
+[C] counts in 649-689 keV divided by total counts (x1e4)
+  P3     74.59
+  P3N5m  83.61
+  P3E5m  75.55
+  P3W5m  85.17
+  P3S5m  73.63
+  P1     84.95
+  P1E5m  79.01
+  P1N5m  81.84
+  P1W5m  84.88
+  P1S5m  83.79
+
+[summary] P3E5m vs the other nine points
+  A net   P3E5m  -117.00 | others mean   141.07 SD   87.39 | z -2.95 | rank 10/10
+  B area  P3E5m   555.53 | others mean   783.37 SD  170.90 | z -1.33 | rank 8/10
+  C frac  P3E5m    75.55 | others mean    81.27 SD    4.50 | z -1.27 | rank 8/10
+  A net   all ten: mean 115 SD 116 range -117-276
+  B area  all ten: mean 761 SD 177 range 500-961
+
+[field record] manual MAESTRO ROI gross/net (not comparable between points):
+  P3     gross  6713 net   245
+  P3N5m  gross  2555 net   183
+  P3E5m  gross  8704 net  1960
+  P3W5m  gross  1518 net    35
+  P3S5m  gross  1516 net    29
+  P1     gross  2269 net    44
+  P1E5m  gross  2525 net    51
+  P1N5m  gross  2029 net    72
+  P1W5m  gross  2542 net   120
+  P1S5m  gross  2346 net    67
+  P3E5m recorded gross 8704 vs fixed-ROI gross 2221 -> recorded ROI was 3.9x wider in counts

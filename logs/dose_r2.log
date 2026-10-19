@@ -1,0 +1,107 @@
+# dose_r2.py run 2026-10-19T20:24:04
+
+[1] R1 analysis reproduced (channel index as in R1 code, 1-based)
+  point    H_G(E)    FH40G  ratio   keff
+  P3       0.0386   0.0932  0.414 1.2754
+  P3N5m    0.0412   0.0911  0.452 1.2725
+  P3E5m    0.0417   0.0973  0.429 1.2696
+  P3W5m    0.0430   0.0985  0.436 1.2706
+  P3S5m    0.0392   0.0823  0.476 1.2712
+  P1       0.0545   0.0890  0.612 1.2679
+  P1E5m    0.0557   0.1190  0.468 1.2657
+  P1N5m    0.0579   0.0911  0.636 1.2653
+  P1W5m    0.0524   0.1040  0.504 1.2678
+  P1S5m    0.0514   0.1020  0.504 1.2676
+  ratio 0.493 +/- 0.075 ; difference 50.7 % ; 1/ratio 2.03
+  Wilcoxon W=0 p=0.0020 ; dz=-5.13 ; bias -0.0492 (95% CI -0.0561 to -0.0423) ; LoA -0.0680 to -0.0304
+  Pearson r=0.441 p=0.20 ; keff 1.2694 +/- 0.0031
+
+[2] k(E)=H*(10)/Ka (Sv/Gy, ICRP 74) at selected channel energies (linear interpolation)
+  0.050 MeV  k=1.670
+  0.100 MeV  k=1.650
+  0.200 MeV  k=1.400
+  0.300 MeV  k=1.310
+  0.600 MeV  k=1.210
+  0.662 MeV  k=1.204
+  1.000 MeV  k=1.170
+  1.461 MeV  k=1.152
+  2.000 MeV  k=1.140
+  2.614 MeV  k=1.134
+  3.000 MeV  k=1.130
+  channel->energy: E_i = -26.4404 + 3.073395*i keV ; channel width 3.07 keV ; channels in 50-3000 keV: 993
+
+[3] proportional-bias tests (n=10, FH40G span 0.082-0.119, factor 1.45)
+  Bland-Altman d vs mean : slope -0.411 (95% CI -1.396 to 0.573) p=0.36
+  OLS H_G(E) vs FH40G    : slope 0.326 (95% CI -0.215 to 0.868) p=0.20
+  ratio vs FH40G          : slope -1.66 per uSv/h (95% CI -7.57 to 4.24) p=0.53
+  CV of differences 19.5 % ; CV of ratios 15.3 %
+  minimum detectable BA slope at 80% power ~ +/- 1.36
+
+[4] bases of the non-geometric uncertainty terms (relative, on the site-mean ratio)
+  (a) counting: per-spectrum u_rel(sum c*G*k) = 0.31-0.37 % ; on 10-point mean 0.11 %
+  (b) G(E) 6th-order ln-poly: rms residual at 20 nodes 5.55 % (max 19.54 %); poly vs log-log node interpolation changes mean ratio by -0.44 %
+  (c) H*(10)/Ka linear vs log-log interpolation: keff 1.2694 vs 1.2681 ; mean ratio change -0.10 %
+  (d) energy scale:
+      0-based vs 1-based channel index (one channel, 3.07 keV): mean ratio change -1.26 %
+      natural lines (true -> recorded, 0-based): 352->349.4 (-0.7 %); 609->614.9 (+0.9 %); 911->927.5 (+1.8 %); 1120->1137.4 (+1.5 %); 1461->1480.2 (+1.3 %); 2614->2648.4 (+1.3 %)
+      recompute with energies re-mapped through the natural lines: mean ratio 0.485 (change -1.74 % vs R1)
+  (e) MCNP tally statistics (3-inch response decks, F8 total):
+      NaI_3inch_50keV.out    MCNP_6.20, nps=100000000 total=7.70027E-01 relerr=0.0001
+      NaI_3inch_100keV.out   MCNP_6.20, nps=100000000 total=8.62974E-01 relerr=0.0000
+      NaI_3inch_200keV.out   MCNP_6.20, nps=100000000 total=8.85036E-01 relerr=0.0000
+      NaI_3inch_300keV.out   MCNP_6.20, nps=100000000 total=8.91681E-01 relerr=0.0000
+      NaI_3inch_400keV.out   MCNP_6.20, nps=100000000 total=8.95085E-01 relerr=0.0000
+      NaI_3inch_500keV.out   MCNP_6.20, nps=100000000 total=8.97104E-01 relerr=0.0000
+      NaI_3inch_600keV.out   MCNP_6.20, nps=100000000 total=8.98402E-01 relerr=0.0000
+      NaI_3inch_700keV.out   MCNP_6.20, nps=100000000 total=8.99222E-01 relerr=0.0000
+      NaI_3inch_800keV.out   MCNP_6.20, nps=100000000 total=8.99765E-01 relerr=0.0000
+      NaI_3inch_1000keV.out  MCNP_6.20, nps=100000000 total=9.00330E-01 relerr=0.0000
+      NaI_3inch_1200keV.out  MCNP_6.20, nps=100000000 total=9.00484E-01 relerr=0.0000
+      NaI_3inch_1400keV.out  MCNP_6.20, nps=100000000 total=9.00496E-01 relerr=0.0000
+      NaI_3inch_1600keV.out  MCNP_6.20, nps=100000000 total=9.00490E-01 relerr=0.0000
+      NaI_3inch_1800keV.out  MCNP_6.20, nps=100000000 total=9.00454E-01 relerr=0.0000
+      NaI_3inch_2000keV.out  MCNP_6.20, nps=100000000 total=9.00437E-01 relerr=0.0000
+      NaI_3inch_2200keV.out  MCNP_6.20, nps=100000000 total=9.00428E-01 relerr=0.0000
+      NaI_3inch_2400keV.out  MCNP_6.20, nps=100000000 total=9.00446E-01 relerr=0.0000
+      NaI_3inch_2600keV.out  MCNP_6.20, nps=100000000 total=9.00498E-01 relerr=0.0000
+      NaI_3inch_2800keV.out  MCNP_6.20, nps=100000000 total=9.00553E-01 relerr=0.0000
+      NaI_3inch_3000keV.out  MCNP_6.20, nps=100000000 total=8.87131E-01 relerr=0.0000
+      max total relative error 0.0001 -> statistical part negligible; 7.5 % term is a Type B modelling allowance
+
+[6] channel-wise application of k(E) checked against the MCNP 20-bin response matrix
+    for each incident energy E0: q(E0) = sum_j G_j k(E_j) R(E0,j) / [k(E0) sum_j G_j R(E0,j)]  (q=1 means exact)
+    E0 0.05 MeV  k(E0) 1.670  q 1.000
+    E0 0.10 MeV  k(E0) 1.650  q 1.007
+    E0 0.20 MeV  k(E0) 1.400  q 1.006
+    E0 0.30 MeV  k(E0) 1.310  q 1.012
+    E0 0.40 MeV  k(E0) 1.260  q 1.016
+    E0 0.50 MeV  k(E0) 1.230  q 1.019
+    E0 0.60 MeV  k(E0) 1.210  q 1.020
+    E0 0.70 MeV  k(E0) 1.200  q 1.019
+    E0 0.80 MeV  k(E0) 1.190  q 1.019
+    E0 1.00 MeV  k(E0) 1.170  q 1.020
+    E0 1.20 MeV  k(E0) 1.162  q 1.017
+    E0 1.40 MeV  k(E0) 1.154  q 1.017
+    E0 1.60 MeV  k(E0) 1.148  q 1.016
+    E0 1.80 MeV  k(E0) 1.144  q 1.015
+    E0 2.00 MeV  k(E0) 1.140  q 1.014
+    E0 2.20 MeV  k(E0) 1.138  q 1.013
+    E0 2.40 MeV  k(E0) 1.136  q 1.012
+    E0 2.60 MeV  k(E0) 1.134  q 1.011
+    E0 2.80 MeV  k(E0) 1.132  q 1.011
+    E0 3.00 MeV  k(E0) 1.130  q 1.011
+    q range over 0.2-3.0 MeV: 1.006-1.020 ; at 0.6 MeV 1.020 ; at 1.4/1.6 MeV 1.017/1.016 ; at 2.6 MeV 1.011
+
+[7] combined budget; geometry-independent terms from [4] (rounded up)
+  FH40G            7.50 %
+  MCNP modelling   7.50 %
+  energy scale     1.74 %
+  G(E) fit         1.00 %
+  H*/Ka applic.    1.97 %
+  counting         0.37 %
+  MCNP term 7.5 % -> combined 11.0 % (k=1), 22.0 % (k=2); observed difference 50.7 % = 2.31x expanded
+  MCNP term 15.0 % -> combined 17.0 % (k=1), 34.0 % (k=2); observed difference 50.7 % = 1.49x expanded
+  linear sum (MCNP 7.5 %): 20.1 %
+
+[8] ratio by cluster: P3 0.442 +/- 0.024 (n=5) ; P1 0.545 +/- 0.074 (n=5) ; Mann-Whitney U=1 p=0.016 (exact, two-sided)
+    Wilcoxon minimum attainable two-sided p for n=10: 0.0020

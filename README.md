@@ -1,112 +1,62 @@
-# Data and Code Repository
+# Data and code: in situ NaI(Tl) G(E) dose rates vs FH40G, and Cs-137 spectral screening
 
-**Paper:** Systematic underestimation of ambient dose rate by in-situ NaI(Tl) gamma spectrometry using the G-factor method: field validation and Cs-137 spatial mapping at an agricultural site
+**Manuscript:** Site-specific field comparison of in situ NaI(Tl) gamma-ray spectrometry for ambient dose equivalent rate estimation and Cs-137 spectral screening
+**Journal:** Applied Radiation and Isotopes (ARI-D-26-00647, under revision)
+**Corresponding authors:** M.-K. Kim (m.k.kim@mju.ac.kr), J. Kim (jokim@inje.ac.kr), K. Kang (bisu9082@gmail.com)
 
-**Journal:** Journal of Environmental Radioactivity (Short Communication, submitted 2026)
+This repository contains the raw spectra, the Monte Carlo outputs and the two scripts that generate every number reported in the revised manuscript.
 
-**Authors:** H. You, W. Bak, G. Choi, M. Shin, J. Yoo, J. Kim\*, K. Kang\*
-
-**Corresponding:** jokim@inje.ac.kr · bisu9082@gmail.com
-
----
-
-## Repository structure
+## Structure
 
 ```
-upload/
-├── data/
-│   ├── raw_results.csv          # Per-point dose rate and ratio results (EXP1)
-│   ├── experiment_summary.json  # Aggregated statistics for all experiments
-│   └── results_table.tex        # LaTeX-formatted results table
-└── code/
-    ├── analysis_main.py         # Main statistical analysis (EXP1–3)
-    └── make_figures_jer.py      # Figure generation for all JER figures (Fig 1–4)
+data/spe/          10 field spectra (ORTEC MAESTRO .Spe, ASCII), 1200 s real / 1198 s live time each
+data/mcnp_3inch/   20 MCNP 6.2 output files: 3-inch NaI(Tl) F8 pulse-height response, 0.05-3.0 MeV
+code/dose_r2.py               G(E) x ICRP 74 H*(10)/Ka dose rates, comparison statistics,
+                              uncertainty-term bases, bias-structure tests
+code/cs137_consistent_roi.py  Cs-137 photopeak extraction with one procedure for all ten spectra
+logs/              output of the two scripts (as cited in the manuscript)
+legacy_jer/        superseded files from the earlier (JER) submission - see note below
 ```
 
-Raw SPE spectrum files (10 × 1200 s acquisitions) are available upon reasonable request to the corresponding authors. They are not included here due to proprietary instrument format constraints.
+## Spectrum files
 
----
+| File | Point | | File | Point |
+|---|---|---|---|---|
+| 3원점.Spe | P3 | | 1원점.Spe | P1 |
+| 3북쪽.Spe | P3N5m | | 1북쪽.Spe | P1N5m |
+| 3동쪽.Spe | P3E5m | | 1동쪽.Spe | P1E5m |
+| 3서쪽.Spe | P3W5m | | 1서쪽.Spe | P1W5m |
+| 3남쪽.Spe | P3S5m | | 1남쪽.Spe | P1S5m |
 
-## Data description
-
-### `data/raw_results.csv`
-Per-point measurement results for all 10 locations (P3 cluster and P1 cluster). Columns:
-
-| Column | Description | Unit |
-|---|---|---|
-| `point_id` | Measurement point label (e.g. P3, P3E5m) | — |
-| `fh40g_1m` | FH40G ionisation-chamber reading at 1 m height | µSv/h |
-| `fh40g_floor` | FH40G reading at floor level | µSv/h |
-| `gf_calc` | G-factor-calculated H*(10) dose rate | µSv/h |
-| `ratio` | GF\_calc / FH40G\_1m | dimensionless |
-| `cs137_net` | Cs-137 net count rate (661.7 keV peak, 1200 s) | counts |
-
-### `data/experiment_summary.json`
-Machine-readable summary of key statistics for EXP1 (dose rate agreement) and EXP3 (Cs-137 hotspot), including Wilcoxon test results, Cohen's d, Bland–Altman bias, and hotspot ratio.
-
-### `data/results_table.tex`
-LaTeX source for the results table included in the manuscript.
-
----
-
-## Code description
-
-### `code/analysis_main.py`
-Runs the full statistical analysis pipeline:
-- EXP1: G-factor vs FH40G ratio analysis (Wilcoxon signed-rank, Cohen's d, Bland–Altman)
-- EXP3: Cs-137 spatial heterogeneity and hotspot quantification
-
-**Usage:**
-```bash
-python analysis_main.py
-```
-Outputs: `raw_results.csv`, `experiment_summary.json`, `results_table.tex`
-
-**Dependencies:** Python ≥ 3.9, numpy, scipy, pandas
-
-### `code/make_figures_jer.py`
-Generates all four manuscript figures (JER\_Fig1.png – JER\_Fig4.png) from the processed data embedded in the script.
-
-**Usage:**
-```bash
-python make_figures_jer.py
-```
-Output directory: `../figure/` (relative to script location)
-
-**Dependencies:** Python ≥ 3.9, numpy, scipy, matplotlib, cartopy (Fig 4 only)
-
----
+Site: Jeju, Republic of Korea, 29 April 2026. Detector: 3 x 3 inch NaI(Tl), ORTEC digiBASE-RH, 1024 channels, 1 m above ground. The energy calibration (E = -26.44 + 3.0734 x channel keV) is in each file header. FH40G (FH 40 G-L10) readings at 1 m are listed in `code/dose_r2.py`. SHA-1 hashes of the spectrum files are printed in `logs/cs137_consistent_roi.log`.
 
 ## Reproducing the results
 
-```bash
-# 1. Run analysis
-cd code/
-python analysis_main.py
-
-# 2. Regenerate figures
-python make_figures_jer.py
+```
+pip install numpy scipy
+cd code
+python3 dose_r2.py               # -> logs/dose_r2.log
+python3 cs137_consistent_roi.py  # -> logs/cs137_consistent_roi.log, .csv
 ```
 
-All key results (ratio = 0.399, Wilcoxon p = 0.002, Cohen's d = −6.3, hotspot ratio = 20.9×) are printed to stdout by `analysis_main.py` and saved to `data/experiment_summary.json`.
-
----
-
-## Field measurement conditions
-
-| Parameter | Value |
+| Manuscript item | Log section |
 |---|---|
-| Site | Jeju Nanjichuksan Agricultural Research Center, Republic of Korea |
-| Date | 29 April 2026 |
-| Instrument (spectrometer) | NaI(Tl) 3×3 inch, 1024-channel MCA |
-| Instrument (reference) | FH40G ionisation-chamber survey meter |
-| Acquisition time | 1200 s live-time per point |
-| Measurement height | 1.0 m above ground |
-| Points | 10 (P3 cluster × 5, P1 cluster × 5) |
-| Cs-137 hotspot | P3E5m: 1960 counts/1200 s (20.9× site background) |
+| G(E)/FH40G ratio, Wilcoxon, d_z, Bland-Altman, Pearson | `dose_r2.log` [1] |
+| k(E) = H*(10)/Ka values and channel mapping | `dose_r2.log` [2], [6] |
+| Additive vs proportional bias tests | `dose_r2.log` [3] |
+| Table 2 uncertainty terms | `dose_r2.log` [4], [7] |
+| Cluster comparison (Fig. 4b) | `dose_r2.log` [8] |
+| Table 1, Cs-137 fitted areas | `cs137_consistent_roi.log` [0], [B] |
+| Fixed-window comparison, Currie levels | `cs137_consistent_roi.log` [A] |
 
----
+## Note on the earlier version (legacy_jer/)
+
+`legacy_jer/` holds the files deposited with the earlier submission. They are kept for transparency and **should not be used**:
+
+- The G(E) dose rates there omit the ICRP 74 H*(10)/Ka conversion (ratio 0.399; corrected value 0.493).
+- The Cs-137 net counts there were transcribed from regions of interest set manually at each point in the acquisition software, with widths that differed between points. The apparent 20.9x "hotspot" at P3E5m was an artefact of those settings and has been withdrawn. With one procedure applied to all spectra, Cs-137 is present at comparable levels at all ten points (`logs/cs137_consistent_roi.log`).
+- The FH40G was described there as an ionisation chamber; it is a proportional-counter instrument.
 
 ## License
 
-Data and code are released under the **MIT License**. When using this repository, please cite the associated manuscript.
+MIT. Please cite the associated article when using these data or code.
