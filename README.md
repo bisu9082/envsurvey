@@ -17,7 +17,7 @@ code/cs137_consistent_roi.py  Cs-137 photopeak extraction with one procedure for
 code/cosmic_r2.py             cosmic-ray ionizing component at the site elevation (UNSCEAR 2000)
                               and the cosmic-corrected G(E)/FH40G comparison
 code/cosmic_in_window.py      upper bound of cosmic signal already inside the 50 keV-3.1 MeV window
-logs/              output of the two scripts (as cited in the manuscript)
+logs/              output of the four scripts (as cited in the manuscript)
 legacy_jer/        superseded files from the earlier (JER) submission - see note below
 ```
 
