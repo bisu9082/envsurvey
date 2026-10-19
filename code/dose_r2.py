@@ -190,3 +190,9 @@ for tg in (0.8,0.9):
     dzm=next(x for x in np.arange(0.5,2,0.001) if pw(x)>=tg); P("  minimum detectable paired dz (n=10, alpha 0.05 two-sided) at %d %% power: %.2f"%(100*tg,dzm))
 a_,b_,c_=-0.01392,0.06968,-0.05862; e=0.6617; fw=a_+b_*np.sqrt(e+c_*e*e); P("  GEB FWHM at 661.7 keV: %.1f keV = %.2f %%"%(1000*fw,100*fw/e))
 open(os.path.join(LOGDIR,"dose_r2.log"),"w").write("\n".join(out)+"\n")
+
+# ---------------- [11] sensitivity: FH40G readings of P3E5m and P3W5m exchanged ----------------
+F2=FH.copy(); i,j=ids.index("P3E5m"),ids.index("P3W5m"); F2[i],F2[j]=FH[j],FH[i]
+r2=H/F2; d2=H-F2
+P("\n[11] P3E5m/P3W5m FH40G readings exchanged: ratio %.3f +/- %.3f ; Wilcoxon W=%.0f p=%.4f ; dz %.2f ; Pearson r %.3f"%(r2.mean(),r2.std(ddof=1),*stats.wilcoxon(H,F2),d2.mean()/d2.std(ddof=1),stats.pearsonr(H,F2)[0]))
+open(os.path.join(LOGDIR,"dose_r2.log"),"w").write("\n".join(out)+"\n")

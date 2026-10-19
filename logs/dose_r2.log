@@ -1,4 +1,4 @@
-# dose_r2.py run 2026-10-20T00:21:30
+# dose_r2.py run 2026-10-20T01:10:42
 
 [1] R1 analysis reproduced (channel index as in R1 code, 1-based)
   point    H_G(E)    FH40G  ratio   keff
@@ -126,3 +126,5 @@
   minimum detectable paired dz (n=10, alpha 0.05 two-sided) at 80 % power: 1.00
   minimum detectable paired dz (n=10, alpha 0.05 two-sided) at 90 % power: 1.16
   GEB FWHM at 661.7 keV: 41.7 keV = 6.29 %
+
+[11] P3E5m/P3W5m FH40G readings exchanged: ratio 0.493 +/- 0.075 ; Wilcoxon W=0 p=0.0020 ; dz -5.12 ; Pearson r 0.439
