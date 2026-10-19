@@ -1,0 +1,40 @@
+# cosmic_r2.py run 2026-10-19T20:39:55
+[1] altitude factor (UNSCEAR 2000 Annex A Eq. 12)
+  P3  z=0.679-0.691 km  factor 1.143-1.147
+  P1  z=0.664-0.671 km  factor 1.137-1.140
+  site cosmic ionizing + photon component: 34.1-36.7 nGy/h (sea level 30-32 nGy/h); taken as ~nSv/h H*(10)
+
+[2] G(E) excludes depositions >3 MeV; FH40G responds to the ionizing component.
+  observed mean difference -0.0492 uSv/h ; cosmic estimate = 69-75 % of it
+  fraction f of the cosmic component registered by FH40G but not by G(E):
+   cosmic 34.1 nSv/h x f=0.5 -> ratio 0.671 +/- 0.081, remaining difference 32.9 %
+   cosmic 34.1 nSv/h x f=1.0 -> ratio 0.849 +/- 0.090, remaining difference 15.1 %
+   cosmic 35.4 nSv/h x f=0.5 -> ratio 0.678 +/- 0.081, remaining difference 32.2 %
+   cosmic 35.4 nSv/h x f=1.0 -> ratio 0.863 +/- 0.091, remaining difference 13.7 %
+   cosmic 36.7 nSv/h x f=0.5 -> ratio 0.685 +/- 0.082, remaining difference 31.5 %
+   cosmic 36.7 nSv/h x f=1.0 -> ratio 0.876 +/- 0.092, remaining difference 12.4 %
+  terrestrial-only comparison (FH40G minus 36.7 nSv/h): ratio 0.804
+  terrestrial-only comparison (FH40G minus 34.1 nSv/h): ratio 0.769
+
+[3] G(E) + cosmic (35.4 +/- 3.6 nSv/h, k=1) vs FH40G, assuming FH40G registers the cosmic component fully
+  point      H+C   FH40G  ratio
+  P3      0.0740  0.0932  0.794
+  P3N5m   0.0766  0.0911  0.841
+  P3E5m   0.0771  0.0973  0.793
+  P3W5m   0.0784  0.0985  0.796
+  P3S5m   0.0746  0.0823  0.907
+  P1      0.0899  0.0890  1.010
+  P1E5m   0.0911  0.1190  0.766
+  P1N5m   0.0933  0.0911  1.024
+  P1W5m   0.0878  0.1040  0.844
+  P1S5m   0.0868  0.1020  0.851
+  ratio 0.863 +/- 0.091 (range 0.766-1.024) ; difference 13.7 %
+  points with ratio < 1: 8/10 ; Wilcoxon W=3 p=0.010 ; mean diff -0.0138 (95% CI -0.0206 to -0.0069)
+  cosmic-estimate term on ratio 4.3 % ; combined with Table 2 (11.0 %): 11.8 % (k=1), 23.6 % (k=2)
+  residual difference 13.7 % vs expanded 23.6 % -> within
+  MCNP term doubled to 15 %: combined 17.6 % (k=1), 35.1 % (k=2)
+  1/ratio range (FH40G over-reading needed to explain each point alone): 0.98-1.31
+  if FH40G cosmic response f=0.5: residual 32.2 % (outside)
+  smallest FH40G cosmic response for which the residual falls within the expanded uncertainty: f = 0.74
+  by cluster: P3 0.826 +/- 0.049 ; P1 0.899 +/- 0.113 ; Mann-Whitney U=7 p=0.310
+  Bland-Altman slope -0.41 (95% CI -1.40 to 0.57) p=0.36

@@ -4,7 +4,7 @@
 **Journal:** Applied Radiation and Isotopes (ARI-D-26-00647, under revision)
 **Corresponding authors:** M.-K. Kim (m.k.kim@mju.ac.kr), J. Kim (jokim@inje.ac.kr), K. Kang (bisu9082@gmail.com)
 
-This repository contains the raw spectra, the Monte Carlo outputs and the two scripts that generate every number reported in the revised manuscript.
+This repository contains the raw spectra, the Monte Carlo outputs and the three scripts that generate every number reported in the revised manuscript.
 
 ## Structure
 
@@ -14,6 +14,8 @@ data/mcnp_3inch/   20 MCNP 6.2 output files: 3-inch NaI(Tl) F8 pulse-height resp
 code/dose_r2.py               G(E) x ICRP 74 H*(10)/Ka dose rates, comparison statistics,
                               uncertainty-term bases, bias-structure tests
 code/cs137_consistent_roi.py  Cs-137 photopeak extraction with one procedure for all ten spectra
+code/cosmic_r2.py             cosmic-ray ionizing component at the site elevation (UNSCEAR 2000)
+                              and the cosmic-corrected G(E)/FH40G comparison
 logs/              output of the two scripts (as cited in the manuscript)
 legacy_jer/        superseded files from the earlier (JER) submission - see note below
 ```
@@ -28,7 +30,7 @@ legacy_jer/        superseded files from the earlier (JER) submission - see note
 | 3서쪽.Spe | P3W5m | | 1서쪽.Spe | P1W5m |
 | 3남쪽.Spe | P3S5m | | 1남쪽.Spe | P1S5m |
 
-Site: Jeju, Republic of Korea, 29 April 2026. Detector: 3 x 3 inch NaI(Tl), ORTEC digiBASE-RH, 1024 channels, 1 m above ground. The energy calibration (E = -26.44 + 3.0734 x channel keV) is in each file header. FH40G (FH 40 G-L10) readings at 1 m are listed in `code/dose_r2.py`. SHA-1 hashes of the spectrum files are printed in `logs/cs137_consistent_roi.log`.
+Site: Jeju, Republic of Korea, 664-691 m above sea level, 29 April 2026. Detector: 3 x 3 inch NaI(Tl), ORTEC digiBASE-RH, 1024 channels, 1 m above ground. The energy calibration (E = -26.44 + 3.0734 x channel keV) is in each file header. FH40G (FH 40 G-L10) readings at 1 m are listed in `code/dose_r2.py`. SHA-1 hashes of the spectrum files are printed in `logs/cs137_consistent_roi.log`.
 
 ## Reproducing the results
 
@@ -37,6 +39,7 @@ pip install numpy scipy
 cd code
 python3 dose_r2.py               # -> logs/dose_r2.log
 python3 cs137_consistent_roi.py  # -> logs/cs137_consistent_roi.log, .csv
+python3 cosmic_r2.py             # -> logs/cosmic_r2.log
 ```
 
 | Manuscript item | Log section |
@@ -46,6 +49,7 @@ python3 cs137_consistent_roi.py  # -> logs/cs137_consistent_roi.log, .csv
 | Additive vs proportional bias tests | `dose_r2.log` [3] |
 | Table 2 uncertainty terms | `dose_r2.log` [4], [7] |
 | Cluster comparison (Fig. 4b) | `dose_r2.log` [8] |
+| Cosmic-ray component, corrected ratio, Table 2 cosmic term | `cosmic_r2.log` [1]-[3] |
 | Table 1, Cs-137 fitted areas | `cs137_consistent_roi.log` [0], [B] |
 | Fixed-window comparison, Currie levels | `cs137_consistent_roi.log` [A] |
 
